@@ -4,14 +4,14 @@
 
 The most basic thing to achieve for the walking skeleton will be this:
 
-- Continuous Integration with the tool of your choice ([Circle CI][3], [Travis CI][4], [Jenkins][5], ...).
+- Continuous Integration with the tool of your choice - [Circle CI][3], [Travis CI][4], [Jenkins][5], ...
 
 - Web frontend with a single button that fetches from a datastore (of your choice) the items that can be added to the 
-basket (two or three will be more than enough)
+basket (two or three will be more than enough).
 
-- Display on the screen the data fetched
+- Display on the screen the data fetched.
 
-- Deployment of the system into a machine (could be your own, [AWS][6], [Azure][7], ...)
+- Deployment of the system into a machine - it could be your own, [AWS][6], [Azure][7], ...
 
 - Be able to run and end to end a test that uses the button on the frontend and asserts that the information has come 
 back and is being displayed (remember, it has to come back from the datastore).

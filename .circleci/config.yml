@@ -27,7 +27,7 @@ jobs:
       - save_cache:
           paths:
             - ~/.gradle
-            key: gradle-{{ checksum "build.gradle" }}
+          key: gradle-{{ checksum "build.gradle" }}
 
       # run tests!
       - run: gradle test

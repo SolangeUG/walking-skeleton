@@ -3,11 +3,9 @@ package com.codurance;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
 import spark.Spark;
 
 import static io.restassured.RestAssured.when;
-import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 public class AT_ShoppingBasket {
@@ -48,7 +46,7 @@ public class AT_ShoppingBasket {
                         "    <title>Hello from button</title>\n" +
                         "</head>\n" +
                         "<body>\n" +
-                        "    <form action=\"/\">\n" +
+                        "    <form action=\"/product\" method=\"get\">\n" +
                         "        <input type=\"submit\"/>\n" +
                         "    </form>\n" +
                         "</body>\n" +
@@ -60,6 +58,16 @@ public class AT_ShoppingBasket {
                 .statusCode(200)
                 .contentType("text/html")
                 .assertThat().body(equalTo(expectedFormWithButton));
+    }
+
+    @Test
+    public void return_requested_product() {
+        when()
+                .get("/product").
+        then()
+                .statusCode(200)
+                .contentType("application/json")
+                .body("ProductId", equalTo("Hello"));
     }
 
     @AfterClass

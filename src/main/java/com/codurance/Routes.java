@@ -1,7 +1,11 @@
 package com.codurance;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import static spark.Spark.get;
-import static spark.Spark.post;
 
 class Routes {
     private final String pageWithButton ="<!DOCTYPE html>\n" +
@@ -11,7 +15,7 @@ class Routes {
             "    <title>Hello from button</title>\n" +
             "</head>\n" +
             "<body>\n" +
-            "    <form action=\"/\">\n" +
+            "    <form action=\"/product\" method=\"get\">\n" +
             "        <input type=\"submit\"/>\n" +
             "    </form>\n" +
             "</body>\n" +
@@ -21,5 +25,22 @@ class Routes {
         get("/hello", (req, res) -> "Hello World");
         get("/bye", (req, res) -> "Goodbye World");
         get("/", (req,res) -> pageWithButton);
+        get("/product", (req, res) -> {
+            res.type("application/json");
+            return parseFile();
+        });
+    }
+
+    private String parseFile() {
+
+        final String pathToJsonFile = "persistence/hello.json";
+        Path filePath =  Paths.get(pathToJsonFile);
+
+        try {
+            return Files.readAllLines(filePath).stream().reduce("", (s, s2) -> s += s2);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
     }
 }

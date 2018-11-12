@@ -3,10 +3,15 @@ version: 2.0
 jobs:
   build:
 
+    docker:
+    - image: circleci/openjdk:8-jdk
+
     working_directory: ~/walking-skeleton
 
-    docker:
-      - image: circleci/openjdk:8-jdk-browsers
+    environment:
+      # Customize the JVM maximum heap limit
+      JVM_OPTS: -Xmx3200m
+      TERM: dumb
 
     steps:
       - checkout
@@ -14,20 +19,15 @@ jobs:
       - restore_cache:
           keys:
             - gradle-{{ checksum "build.gradle" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
 
-      - run: gradle assemble
-      - run: gradle run
-      - run: gradle test
+      - run: gradle dependencies
 
       - save_cache:
           paths:
             - ~/.gradle
             key: gradle-{{ checksum "build.gradle" }}
 
-      - store_artifacts:
-          path: build/distributions
-          destination: distributions
-
-      - store_artifacts:
-          path: build/libs
-          destination: libs
+      # run tests!
+      - run: gradle test

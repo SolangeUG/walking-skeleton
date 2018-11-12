@@ -7,6 +7,7 @@ import org.junit.Test;
 import spark.Spark;
 
 import static io.restassured.RestAssured.when;
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 public class AT_ShoppingBasket {
@@ -35,6 +36,30 @@ public class AT_ShoppingBasket {
             .statusCode(200)
             .contentType("text/html")
             .assertThat().body(equalTo("Goodbye World"));
+    }
+
+    @Test
+    public void return_homepage_with_a_button() {
+        String expectedFormWithButton=
+                "<!DOCTYPE html>\n" +
+                        "<html lang=\"en\">\n" +
+                        "<head>\n" +
+                        "    <meta charset=\"UTF-8\">\n" +
+                        "    <title>Hello from button</title>\n" +
+                        "</head>\n" +
+                        "<body>\n" +
+                        "    <form action=\"/\">\n" +
+                        "        <input type=\"submit\"/>\n" +
+                        "    </form>\n" +
+                        "</body>\n" +
+                        "</html>";
+
+        when()
+                .get("/").
+        then()
+                .statusCode(200)
+                .contentType("text/html")
+                .assertThat().body(equalTo(expectedFormWithButton));
     }
 
     @AfterClass

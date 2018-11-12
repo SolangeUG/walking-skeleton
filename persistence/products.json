@@ -1,0 +1,24 @@
+{
+  "products":{
+    "product1":{
+      "productID": "10002",
+      "name": "The Hobbit",
+      "price": 5
+    },
+    "product2":{
+      "productID": "10001",
+      "name": "The Lord Of The Rings",
+      "price": 10
+    },
+    "product3":{
+      "productID": "20110",
+      "name": "Breaking Bad",
+      "price": 7
+    },
+    "product4":{
+      "productID": "20001",
+      "name": "Game of Thrones",
+      "price": 9
+    }
+  }
+}
